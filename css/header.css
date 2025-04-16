@@ -1,0 +1,21 @@
+.main-header{
+    position: fixed;
+    display: block;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    column-gap: 10px;
+    min-height: 50vh;
+
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 5px;
+    border: 1px solid #000000;
+}
+.grid-content{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+}
