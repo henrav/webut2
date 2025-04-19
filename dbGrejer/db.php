@@ -53,6 +53,17 @@ function get_users()
     return $result;
 }
 
+function get_posts()
+{
+    global $connection;
+    $sql = 'SELECT * FROM post';
+    $statment = mysqli_prepare($connection, $sql);
+    mysqli_stmt_execute($statment);
+    $result = get_result($statment);
+    mysqli_stmt_close($statment);
+    return $result;
+}
+
 function check_inlogg($userName, $password)
 {
     global $connection;

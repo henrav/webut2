@@ -1,0 +1,72 @@
+.post {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    padding: 0.5rem;
+    border-radius: 6px;
+    background-color: rgba(67, 59, 121, 0.3);
+    box-shadow: 0 8px 10px rgba(0, 0, 0, 0.05);
+    margin: 0;
+    cursor: pointer;
+    transition:
+            transform 0.25s ease-in-out,
+            box-shadow 0.25s ease-in-out;
+
+}
+
+.post:hover {
+    /* a subtle lift rather than a full-scale pop */
+    transform: translateY(-2px) scale(1.01);
+    /* a slightly stronger, but still soft, shadow */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.10);
+}
+
+.post-preview-content{
+    margin-top: 10px;
+    display: flex;
+    text-align: center;
+    height: fit-content;
+    background-color: rgba(255, 255, 255, 0.2);
+    min-height: 5vh;
+    padding: 5px 10px;
+    width: 70%;
+    border-radius: 6px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 0 2px 1px rgba(60, 60, 60, 0.1);
+    color: #ffffff;
+    margin-bottom: 15px;
+}
+
+.post-title{
+    display: inline-flex;
+    font-size: 20px;
+    font-weight: bold;
+    margin: auto;
+    padding: 5px 10px;
+    text-align: center;
+
+}
+.post-title h3{
+    margin: 0;
+    padding: 0;
+    color: #f1f1f1;
+}
+.post-footer{
+    margin-top: 5px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+    padding: 5px 10px;
+}
+
+.post-preview-text{
+    display: inline-flex;
+    font-size: 16px;
+    margin: auto;
+    padding: 5px 10px;
+    text-align: center;
+
+}

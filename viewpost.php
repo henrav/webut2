@@ -13,29 +13,19 @@ require_once __DIR__ . '/dbGrejer/db.php';
     <link rel="stylesheet" href="css/post.css">
     <link rel="stylesheet" href="css/right-main-content.css">
     <link rel="stylesheet" href="css/left-main-content.css">
+    <link rel="stylesheet" href="css/viewpost.css">
 </head>
 <body>
 <?php require_once __DIR__ . '/header.php'; ?>
-<div class="main-body">
-    <?php require_once __DIR__ . '/rightandLeft/left/left-container.php'; ?>
+<div class="main-body-view">
     <div class="main-body-center">
         <div class="center-main-content">
             <div class="h2-container">
                 <h2>Nya blogginlägg</h2>
             </div>
-            <?php
-            $posts = get_posts();
-            ?>
-            <?php foreach ($posts as $post) :
-                $nyPost = new post($post);
-                echo $nyPost->renderPost();
-                ?>
-            <?php endforeach;?>
         </div>
-
     </div>
 
-    <?php require_once __DIR__ . '/rightandLeft/right/right-container.php'?>
 </div>
 
 

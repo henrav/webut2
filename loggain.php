@@ -24,7 +24,12 @@
         </p>
     <?php endif; ?>
     <!-- Formulär -->
-    <form method="post" action="/AuthGrejer/loggainAuth.php" class="login-form">
+    <form method="post" action="/AuthGrejer/loggainAuth.php<?= isset($_GET['nav'])
+            ? '?nav=' . htmlspecialchars($_GET['nav'], ENT_QUOTES, 'UTF-8')
+                : ''
+            ?>"
+            class="login-form"
+    >
         <div class="form-group">
             <label for="username">Användarnamn:</label>
             <input

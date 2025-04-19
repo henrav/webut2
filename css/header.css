@@ -1,16 +1,23 @@
 .main-header{
-    position: fixed;
-    display: block;
+    position: static;
+    display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 10px;
     column-gap: 10px;
-    min-height: 50vh;
-
-    background-color: rgba(0, 0, 0, 0.8);
+    height: 9vh;
+    box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.2);
     border-radius: 5px;
-    border: 1px solid #000000;
+    margin-top: 0;
+
 }
+.main-header-grid{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    padding: 10px 5px;
+}
+
 .grid-content{
     display: flex;
     width: 100%;
@@ -19,3 +26,56 @@
     text-align: center;
 
 }
+.nav-home {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    min-width: 5rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    font-size: 0.9rem;
+    color: #333;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+            background 0.2s ease-in-out,
+            box-shadow 0.2s ease-in-out,
+            transform 0.1s ease-in-out;
+
+}
+
+.nav-home:hover {
+    background: linear-gradient(135deg, #f9f9f9 0%, #e6e6e6 100%);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    transform:  scale(1.02);
+}
+
+.logout-login-button{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    min-width: 5rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    font-size: 0.9rem;
+    color: #333;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+            background 0.2s ease-in-out,
+            box-shadow 0.2s ease-in-out,
+            transform 0.1s ease-in-out;
+}
+
+.logout-login-button:hover{
+    background: linear-gradient(135deg, #f9f9f9 0%, #e6e6e6 100%);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    transform:  scale(1.02);
+}
+

@@ -1,0 +1,11 @@
+.main-body-right{
+    max-height: 89vh;
+    min-height: 89vh;
+    display: block;
+    box-shadow: 0 0 7px -1px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.08);
+}
+.main-body-right >*{
+    padding: 10px;
+}

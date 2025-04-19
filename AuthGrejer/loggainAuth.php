@@ -11,7 +11,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($hits == 1){ // bara om hittar en sådan
         createSession($userName, 3600);
-        header('Location: /index.php');
+        if (isset($_GET['nav'])){
+            if ($_GET['nav'] == 'edit'){
+                header('Location: /edit.php');
+            }else{
+                header('Location: /index.php');
+            }
+        }else{
+            header('Location: /index.php');
+        }
     }else{
         header('Location: /loggain.php?error=Felaktigt+användarnamn+eller+lösenord');
         exit;

@@ -1,0 +1,14 @@
+.center-main-content-view{
+
+}
+
+.main-body-view{
+    gap: 5px;
+    display: grid;
+    grid-template-columns: 1fr ;
+    align-items: center;
+    justify-content: center;
+    margin: 0 0 10vh;
+    min-height: 91vh;
+    overflow: clip;
+}

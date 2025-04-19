@@ -1,9 +1,7 @@
 <?php
-session_start();
-session_destroy();
+require_once  "auth.php";
 
-setcookie("username", "", time() - 3600, "/");
-setcookie("loggedIn", "", time() - 3600, "/");
+session_destroy();
 
 header("Location: /index.php?message=Utloggad");
 exit;
