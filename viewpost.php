@@ -2,6 +2,21 @@
 require_once __DIR__ . '/AuthGrejer/auth.php';
 require_once 'post.php';
 require_once __DIR__ . '/dbGrejer/db.php';
+
+$postID = $_GET['ID'] ?? "";
+if ($postID == ""){
+    header('Location: /index.php');
+}
+
+try{
+    $getpost = get_post($postID);
+
+    $post = new viewPost($getpost);
+
+}catch (Exception $e){
+    header('Location: /index.php');
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="sv">
@@ -17,17 +32,11 @@ require_once __DIR__ . '/dbGrejer/db.php';
 </head>
 <body>
 <?php require_once __DIR__ . '/header.php'; ?>
-<div class="main-body-view">
-    <div class="main-body-center">
-        <div class="center-main-content">
-            <div class="h2-container">
-                <h2>Nya blogginlägg</h2>
-            </div>
-        </div>
+<div class="container">
+    <div class="view-post-container">
+            <?= $post->renderPost() ?>
     </div>
-
 </div>
-
 
 
 </body>

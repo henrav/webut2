@@ -23,6 +23,52 @@ function add_user($username, $password)
     mysqli_stmt_close($statment);
 }
 
+
+
+function get_newest_posts($limit)
+{
+    global $connection;
+    $sql = 'SELECT post.id as postID, post.title, post.created, username, image  FROM post inner join user on post.userId = user.id    ORDER BY post.created DESC LIMIT ?';
+    $statment = mysqli_prepare($connection, $sql);
+    mysqli_stmt_bind_param($statment, "i", $limit);
+    mysqli_stmt_execute($statment);
+    $result = mysqli_stmt_get_result($statment);
+    return mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+}
+function get_newest_users($limit)
+{
+    global $connection;
+    $sql = 'SELECT id as userID, username, created, image from user ORDER BY created desc LIMIT ?';
+    $statment = mysqli_prepare($connection, $sql);
+    mysqli_stmt_bind_param($statment, "i", $limit);
+    mysqli_stmt_execute($statment);
+    $result = mysqli_stmt_get_result($statment);
+    return mysqli_fetch_all($result, MYSQLI_ASSOC);
+}
+
+function get_post($id){
+    global $connection;
+    $sql = 'SELECT
+            p.id,
+            p.title,
+            p.content,
+            p.created,
+            p.userId,
+            u.username,
+            u.image
+            FROM post AS p
+                INNER JOIN user AS u
+                    ON p.userId = u.id
+            WHERE p.id = ?;';
+    $stmt = mysqli_prepare($connection, $sql);
+    mysqli_stmt_bind_param($stmt, "i", $id);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    return mysqli_fetch_assoc($result);
+
+}
+
 /**
  * Tar in ett statement som har körts, hämtar resultatet och lägger
  * resultatet i en array med rader där varje rad innehåller en array med fält
@@ -56,11 +102,10 @@ function get_users()
 function get_posts()
 {
     global $connection;
-    $sql = 'SELECT * FROM post';
+    $sql = 'SELECT post.id, post.title, content, post.created, userId, username, image FROM post inner join user on post.userId = user.id';
     $statment = mysqli_prepare($connection, $sql);
     mysqli_stmt_execute($statment);
     $result = get_result($statment);
-    mysqli_stmt_close($statment);
     return $result;
 }
 

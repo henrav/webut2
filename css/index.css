@@ -4,9 +4,9 @@ html, body{
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    background: #C33764;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to top, #1D2671, #C33764);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to top, #1D2671, #C33764); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #485563;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to top, #29323c, #485563);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, #29323c, #485563); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
     color: #e8e8e8;
     overflow: clip;
@@ -17,7 +17,7 @@ html, body{
 
     gap: 5px;
     display: grid;
-    grid-template-columns: 1fr 4fr 1fr;
+    grid-template-columns: 3fr 8fr ;
     align-items: center;
     justify-content: center;
     margin: 0 0 10vh;
@@ -36,29 +36,30 @@ html, body{
 .main-body-center{
     max-height: 89vh;
     display: block;
-
     border-radius: 5px;
     overflow-y: auto;
     overflow-x: hidden;
-    scrollbar-color: #24415a rgba(232, 232, 232, 0);
+    scrollbar-color: #45515e rgba(232, 232, 232, 0);
     scrollbar-width: thin;
     scrollbar-gutter: stable;
+    width: 100%;
 }
-.main-body-center >*{
+.main-body-center >*:not(:first-child){
     padding: 10px;
 }
 
 .h2-container{
     margin: 0;
-    background-color: rgba(255, 255, 255, 0.2);
-    padding: 5px 160px;
+    background-color: rgb(255, 255, 255);
+    padding: 25px 160px;
     border-radius: 6px;
+    box-shadow: 0 0 2px 1px rgba(60, 60, 60, 0.1);
 }
 
 .h2-container h2{
     margin-top: 0;
     margin-bottom: 0;
-    color: #f1f1f1;
+    color: #000000;
     font-weight: bold;
 }
 
@@ -68,7 +69,8 @@ html, body{
     align-items: center;
     flex-direction: column;
     border-radius: 5px;
-    gap: 20px;
+    gap: 40px;
+
 
 }
 

@@ -1,10 +1,16 @@
-.main-body-left{
+.main-body-left {
     max-height: 89vh;
     min-height: 89vh;
     display: block;
     box-shadow: 0 0 7px -1px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
-    background-color: rgba(255, 255, 255, 0.08);
+    background-color: rgba(255, 255, 255, 0.8);
+
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-color: #45515e rgba(232, 232, 232, 0);
+    scrollbar-width: thin;
+    scrollbar-gutter: stable;
 }
 .main-body-left >*{
     padding: 10px;
@@ -17,4 +23,70 @@
     flex-direction: column;
     border-radius: 5px;
     gap: 20px;
+
+
+}
+.news-feed{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 5px;
+    gap: 20px;
+    width: 100%;
+}
+.news-feed:first-child{
+    margin-top: 10px;
+}
+
+.ny-user{
+    display: flex;
+    box-shadow: 0 0 7px -1px rgba(0, 0, 0, 0.1);
+    padding: 8px 16px;
+    width: 90%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 5px;
+    gap: 10px;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+.ny-user h3{
+    margin: 0;
+    padding: 0;
+    color: #000000;
+    font-weight: bold;
+}
+.ny-user-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    border-radius: 5px;
+    gap: 20px;
+}
+.ny-text-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    border-radius: 5px;
+    gap: 5px;
+}
+.ny-user-name{
+    font-size: 17px;
+    color: #00366f;
+    font-weight: bold;
+}
+
+.ny-user-img{
+    max-width: 4vh;
+    max-height: 4vh;
+}
+
+.ny-user-img img{
+    display: block;       /* remove inline img whitespace quirks */
+    width: 100%;          /* fill wrapper width */
+    height: 100%;         /* fill wrapper height */
+    object-fit: cover;  /* scale down/up to fit, preserving aspect */
 }

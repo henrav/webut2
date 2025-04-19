@@ -21,13 +21,13 @@ require_once __DIR__ . '/dbGrejer/db.php';
     <div class="main-body-center">
         <div class="center-main-content">
             <div class="h2-container">
-                <h2>Nya blogginlägg</h2>
+                <h2>Senaste blogginläggen</h2>
             </div>
             <?php
             $posts = get_posts();
             ?>
             <?php foreach ($posts as $post) :
-                $nyPost = new post($post);
+                $nyPost = new indexPost($post);
                 echo $nyPost->renderPost();
                 ?>
             <?php endforeach;?>
@@ -35,7 +35,7 @@ require_once __DIR__ . '/dbGrejer/db.php';
 
     </div>
 
-    <?php require_once __DIR__ . '/rightandLeft/right/right-container.php'?>
+
 </div>
 
 
