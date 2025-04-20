@@ -23,6 +23,16 @@ function add_user($username, $password)
     mysqli_stmt_close($statment);
 }
 
+function update_user($username, $title, $presentation, $id){
+    global $connection;
+    $sql = 'UPDATE user SET title = ?, presentation = ?, username = ? where id = ?';
+    $statment = mysqli_prepare($connection, $sql);
+    mysqli_stmt_bind_param($statment, "sssi", $title, $presentation, $username, $id);
+    mysqli_stmt_execute($statment);
+    mysqli_stmt_close($statment);
+
+}
+
 
 
 function get_newest_posts($limit)
@@ -102,7 +112,7 @@ function get_users()
 function get_posts()
 {
     global $connection;
-    $sql = 'SELECT post.id, post.title, content, post.created, userId, username, image FROM post inner join user on post.userId = user.id';
+    $sql = 'SELECT post.id, post.title, content, post.created, userId, username, image FROM post inner join user on post.userId = user.id order by post.created DESC';
     $statment = mysqli_prepare($connection, $sql);
     mysqli_stmt_execute($statment);
     $result = get_result($statment);
@@ -113,7 +123,7 @@ function check_inlogg($userName, $password)
 {
     global $connection;
 
-    $sql = 'SELECT * FROM user WHERE username = ? AND password = ?';
+    $sql = 'SELECT id, username  FROM user WHERE username = ? AND password = ?';
     $stmt = mysqli_prepare($connection, $sql);
 
     if (!$stmt) {
@@ -124,19 +134,60 @@ function check_inlogg($userName, $password)
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
 
-    return mysqli_num_rows($result);
+    return mysqli_fetch_assoc($result);
+}
+
+function get_posts_userid($userId){
+    global $connection;
+
+    $sql = 'SELECT post.id, post.title, content, post.created, userId, username, image FROM post  left join user on post.userId = user.id where post.userId = ? order by post.created desc;';
+    $stmt = mysqli_prepare($connection, $sql);
+    mysqli_stmt_bind_param($stmt, "i",  $userId);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    return mysqli_fetch_all($result, MYSQLI_ASSOC);
+
 }
 
 function get_user($username)
 {
     global $connection;
-    $sql = 'SELECT * FROM user WHERE username=?';
+    $sql = 'SELECT id, username, title, presentation, image, created FROM user WHERE username=?';
     $statment = mysqli_prepare($connection, $sql);
     mysqli_stmt_bind_param($statment, "s", $username);
     mysqli_stmt_execute($statment);
     $result = get_result($statment);
     mysqli_stmt_close($statment);
     return $result;
+}
+
+function get_user_by_id($id)
+{
+    global $connection;
+    $sql = 'SELECT id, username, title, presentation, image, created FROM user WHERE id=?';
+    $statment = mysqli_prepare($connection, $sql);
+    mysqli_stmt_bind_param($statment, "i", $id);
+    mysqli_stmt_execute($statment);
+    $result = mysqli_stmt_get_result($statment);
+    return mysqli_fetch_assoc($result);
+
+}
+
+function create_post($title, $content, $userId)
+{
+    global $connection;
+    $sql = 'INSERT INTO post(title,  content, userId) VALUES( ?, ?, ?)';
+    $statment = mysqli_prepare($connection, $sql);
+    mysqli_stmt_bind_param($statment, "ssi", $title, $content, $userId);
+    mysqli_stmt_execute($statment);
+}
+
+function update_post($id, $title, $content){
+    global $connection;
+    $sql = 'UPDATE post SET title = ?, content = ? WHERE id = ?;';
+    $statment = mysqli_prepare($connection, $sql);
+    mysqli_stmt_bind_param($statment, "ssi", $title, $content, $id);
+    mysqli_stmt_execute($statment);
 }
 
 function get_password($id)
@@ -162,7 +213,17 @@ function get_images($id)
     mysqli_stmt_close($statment);
     return $result;
 }
+function get_post_content($id)
+{
+    global $connection;
+    $sql = 'SELECT content, title FROM post WHERE id=?';
+    $statment = mysqli_prepare($connection, $sql);
+    mysqli_stmt_bind_param($statment, "i", $id);
+    mysqli_stmt_execute($statment);
+    $result = mysqli_stmt_get_result($statment);
+    return mysqli_fetch_assoc($result);
 
+}
 
 function change_avatar($filename, $id)
 {

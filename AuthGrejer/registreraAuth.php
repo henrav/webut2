@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (!$user){
         add_user($userName, $password);
-        createSession($userName, 3600);
+        createSession($userName, $user['id'] ,3600);
         header('Location: /index.php');
     }else{
         header('Location: /registrera.php?error=Användarnamnet+finns+redan');

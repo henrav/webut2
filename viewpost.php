@@ -11,7 +11,7 @@ if ($postID == ""){
 try{
     $getpost = get_post($postID);
 
-    $post = new viewPost($getpost);
+    $posten = new viewPost($getpost);
 
 }catch (Exception $e){
     header('Location: /index.php');
@@ -33,9 +33,13 @@ try{
 <body>
 <?php require_once __DIR__ . '/header.php'; ?>
 <div class="container">
-    <div class="view-post-container">
-            <?= $post->renderPost() ?>
+    <?php require_once __DIR__ . '/rightandLeft/left/left-container.php'; ?>
+    <div class="thingy-orkar-inte-döpa-fler-containrar">
+        <div class="view-post-container">
+            <?= $posten->renderPost() ?>
+        </div>
     </div>
+
 </div>
 
 

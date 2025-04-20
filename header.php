@@ -2,7 +2,7 @@
 <div class="main-header">
     <div class="main-header-grid">
         <div class="grid-content">
-            <button class="nav-home" onclick="window.location.href='/index.php';">Hem</button>
+            <button class="header-button" onclick="window.location.href='/index.php';">Hem</button>
         </div>
         <div class="grid-content">
             <?php if (isset($_SESSION["loggedIn"])): ?>
@@ -13,11 +13,11 @@
         </div>
         <div class="grid-content">
             <?php if (isset($_SESSION["loggedIn"])): ?>
-            <button class="logout-login-button" onclick="window.location.href='/AuthGrejer/logautAuth.php';"> Logga ut</button>
-            <?php else:?>
+            <button class="header-button" onclick="window.location.href='/AuthGrejer/logautAuth.php';"> Logga ut</button>
+            <button class="header-button" style="margin-left: 10px" onclick="window.location.href='/profile.php?ID=<?= $_SESSION['userID'] ?>';"> Min profil</button>            <?php else:?>
             <div style="display: flex; gap: 1vw; ">
-                <button class="logout-login-button" onclick="window.location.href='/loggain.php';"> Logga in</button>
-                <button class="logout-login-button" onclick="window.location.href='/registrera.php';"> Registrera</button>
+                <button class="header-button" onclick="window.location.href='/loggain.php';"> Logga in</button>
+                <button class="header-button" onclick="window.location.href='/registrera.php';"> Registrera</button>
             </div>
 
             <?php endif;?>

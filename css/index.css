@@ -4,21 +4,19 @@ html, body{
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    background: #485563;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to top, #29323c, #485563);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to top, #29323c, #485563); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background-image: url('/images/Heavy_from_tf2 copy.png');
 
-    color: #e8e8e8;
+    color: #ffffff;
     overflow: clip;
 }
 
 
 .main-body{
 
-    gap: 5px;
+
     display: grid;
     grid-template-columns: 3fr 8fr ;
-    align-items: center;
+    align-items: start;
     justify-content: center;
     margin: 0 0 10vh;
     min-height: 91vh;
@@ -26,14 +24,13 @@ html, body{
 }
 
 .main-body >*{
-    margin-top: 10px;
-    margin-left: 10px;
-    margin-right: 10px;
+
     padding-bottom: 0;
 }
 
 
 .main-body-center{
+
     max-height: 89vh;
     display: block;
     border-radius: 5px;

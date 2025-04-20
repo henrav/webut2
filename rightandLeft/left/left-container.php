@@ -89,7 +89,7 @@ shuffle($tf2quotes);
 <div class="main-body-left">
     <div class="left-main-content">
         <div style="color: black" class="news-feed">
-            <h2 style="color: black; margin: 0; background-color: #f6f6f6; padding: 20px 60px; border-radius: 6px">
+            <h2 style="color: black; margin: 0; background-color: white; padding: 20px 60px; border-radius: 6px">
                 Nyaste medlemmar
             </h2>
             <!-- orka inte göra en klass för detta som för posten-->
@@ -106,19 +106,20 @@ shuffle($tf2quotes);
                     echo    '<div class="ny-user">
                                    <h3>Ny heavy joina oss</h3>
                                    <div class="ny-text-container">
-                                             <div class="ny-user-text">välkommna</div>
-                                             <div class="ny-user-name">'.$post['username'] .'</div>    
-                                    </div>
-                                    <div style="font-style: italic;">
+                                         <div class="ny-user-text">välkommna</div>
+                                         <div class="ny-user-name">'.$post['username'] .'</div>    
+                                   </div>
+                                   <div style="font-style: italic;">
                                        "'. $randomQuote .'"
-                                    </div>
+                                   </div>
                                  
-                                <div class="ny-user-container">
-                                        <div class="ny-user-img">
+                                   <div class="ny-user-container">
+                                     <div class="ny-user-img">
                                   
                                         <img class="ny-user-img" src="/'.$imgPath .'" alt="">
+                                   </div>
+                                    <div class="ny-user-timestamp">'.$post['created'] . '
                                     </div>
-                                    <div class="ny-user-timestamp">'.$post['created'] . '</div>
                                 </div>
                             </div>';
                 }

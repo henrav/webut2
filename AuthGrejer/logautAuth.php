@@ -1,8 +1,4 @@
 <?php
-require_once  "auth.php";
-
+session_start();
 session_destroy();
-
-header("Location: /index.php?message=Utloggad");
-exit;
-
+header("Location: /index.php");
