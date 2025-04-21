@@ -5,13 +5,13 @@
     border-radius: 6px 6px 6px 6px;
     border-bottom: 1px solid rgba(0,0,0,0.1);
     padding: 1rem;
-    grid-template-columns: 500px 2fr;
-    grid-template-rows: auto auto;
+    grid-template-columns: 25vw 2fr;
+    min-height: fit-content;
     grid-template-areas:
     "picture info"
-    "posts   posts";
+    "posts  posts";
     margin: 0 auto;
-    min-height: fit-content;
+
 }
 
 
@@ -28,7 +28,6 @@
     align-items: center;
     flex-direction: column;
     grid-area: posts;
-    width: 96%;
     border-radius: 0 0 6px 6px;
 
 
@@ -41,11 +40,12 @@
 .view-profile-container{
     display: flex;
     flex-direction: column;
-    grid-template-rows: 0.5fr auto    ;
+    grid-template-rows: 0.5fr auto;
     padding: 1rem;
     border-top-right-radius: 6px;
     min-height: calc(100% - 2rem);
     background-color: #fff;
+
 }
 .user-title-box h3{
     margin: 0;
@@ -62,18 +62,30 @@
     border-radius: 6px;
     min-width: 95%;
     flex-direction: column;
+
 }
 
 .presentation-container-text{
+
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: flex-start;
     align-items: center;
+
     background-color: #fff;
     padding: 0.5rem;
     border-radius: 6px;
-    min-width: 85%;
-    min-height: 10vh;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0,0,0,0.1);
+    max-width: 30vw;
+
+
+    overflow-wrap: break-word;
+    word-break: break-word;
+    word-wrap: break-word;
+
+    margin: 15px auto;
+    min-height: 100%;
+
 }
 .joined-container{
     display: flex;
@@ -117,7 +129,7 @@
 }
 
 .profile-rest-of-content{
-    display: flex;
+    display: block;
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -125,16 +137,22 @@
     width: 95%;
     color: black;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .picture-part {
-    align-items: center;
-    justify-content: center;
-    height: fit-content;
-    display: inline-flex;
+    align-items: start;
+    justify-content: start;
+    min-height: calc(100% - 2rem) ;
+    display: flex;
     flex-direction: column;
     margin-bottom: auto;
     background-color: #ffffff;
+    gap: 1vh;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
 
 }
 
@@ -142,7 +160,7 @@
 
 
     width: 100%;
-    margin-bottom: auto;
+
     height: 280px;
     max-height: 400px;
 }
@@ -164,10 +182,9 @@
     font-size: 12px;
     font-weight: bold;
     cursor: pointer;
-    margin-top: 0.5rem;
-    margin-bottom: auto;
     margin-left: auto;
-    margin-right: auto;
+
+
 }
 
 .redigera{
@@ -180,4 +197,63 @@
     font-weight: bold;
     cursor: pointer;
     margin-left: 10px;
+}
+
+
+.upload-container {
+    width: calc(100% - 2rem);
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1rem;
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    text-align: center;
+}
+
+.upload-container h3 {
+    margin-top: 0;
+    font-size: 1.25rem;
+    color: #333;
+}
+
+.upload-explain {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 1rem;
+}
+
+.upload-form {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.file-input-label {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: #f0f0f0;
+    color: #333;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.file-input-label:hover {
+    background: #e0e0e0;
+}
+
+.upload-button {
+    padding: 0.5rem 1rem;
+    background: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.upload-button:hover {
+    background: #006ae0;
 }

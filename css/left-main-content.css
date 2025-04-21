@@ -48,6 +48,7 @@
     border-radius: 5px;
     gap: 10px;
     background-color: rgb(255, 255, 255);
+    cursor: pointer;
 }
 .ny-user h3{
     margin: 0;

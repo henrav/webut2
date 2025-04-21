@@ -2,6 +2,8 @@
 
 $newUsers = get_newest_users(10);
 
+
+// tf2 quotes !
 $tf2quotes = array(
     "Need a dispenser here!",
     "Need a Sentry here!",
@@ -81,6 +83,7 @@ $tf2quotes = array(
     "I will eat your ribs. I will eat them up!"
 );
 
+// shuffle (=
 shuffle($tf2quotes);
 
 
@@ -92,18 +95,18 @@ shuffle($tf2quotes);
             <h2 style="color: black; margin: 0; background-color: white; padding: 20px 60px; border-radius: 6px">
                 Nyaste medlemmar
             </h2>
-            <!-- orka inte göra en klass för detta som för posten-->
+            <!-- orka inte göra en klass för detta som för posten, ville experimentera-->
          <?php
             foreach ($newUsers as $post) {
                 // separerar posts från nya users genom att
                 // selecta "ID" as "userID" när jag hämtar users
                 // hade nya posts här innan därflr det är en if sats men kl äär 01 och orkar inte ta bort
                 if (isset($post['userID'])){
-                    $imgPath = ! empty($post['image'])
-                        ? $post['image']
-                        : 'images/Heavy_from_tf2 copy.png';
+                    $imgPath = !empty($post['image'] || $post['image'] != '')
+                        ? $imgPath = $post['image']
+                        : 'images/scout_eating.jpg';
                     $randomQuote = array_pop($tf2quotes);
-                    echo    '<div class="ny-user">
+                    echo    '<div class="ny-user" onclick="window.location.href=\'profile.php?ID='.$post['userID'].'\'">
                                    <h3>Ny heavy joina oss</h3>
                                    <div class="ny-text-container">
                                          <div class="ny-user-text">välkommna</div>
@@ -116,7 +119,7 @@ shuffle($tf2quotes);
                                    <div class="ny-user-container">
                                      <div class="ny-user-img">
                                   
-                                        <img class="ny-user-img" src="/'.$imgPath .'" alt="">
+                                        <img class="ny-user-img" src="'.$imgPath .'" alt="">
                                    </div>
                                     <div class="ny-user-timestamp">'.$post['created'] . '
                                     </div>

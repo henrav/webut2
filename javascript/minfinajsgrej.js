@@ -1,4 +1,5 @@
 // ska bara användas för edit grejer och så på "profil" sidan
+const API_BASE = '/d0019e/vt25/henrav2/blog/dbGrejer/apiGrejsenFragetecken.php';
 
 
 window.getDelete = function(id) {
@@ -33,7 +34,7 @@ window.removeOverlay = function() {
 window.removePost = async function (id) {
     console.log('removing');
     try {
-        const reponse = await fetch(`../dbGrejer/apiGrejsenFragetecken.php?id=${id}&delete=true`, {
+        const reponse = await fetch(`${API_BASE}?id=${id}&delete=true`, {
             method: 'GET',
         });
         if (!reponse.ok) {
@@ -59,15 +60,15 @@ window.getEditProfile = async function(id){
             <div class="screen-dialog-header">Redigera din profil</div>
             <div class="input-container" style="margin-top: 20px">
                   <div class="input-description">Byt namn: </div>
-                  <textarea id="username" class="screen-dialog-edit-profile-input">${data['username']}</textarea>
+                  <textarea id="username" class="screen-dialog-edit-profile-input" maxlength="30">${data['username']}</textarea>
             </div>
             <div class="input-container">
                   <div class="input-description">Byt titel: </div>
-                  <textarea id="title" class="screen-dialog-edit-profile-input">${data['title']}</textarea>
+                  <textarea id="title" class="screen-dialog-edit-profile-input" maxlength="50">${data['title']}</textarea>
             </div>
             <div class="input-container" style="margin-bottom: 20px">
                   <div class="input-description">Byt "Om mig": </div>
-                  <textarea id="presentation" class="screen-dialog-edit-profile-input largetext">${data['presentation']}</textarea>
+                  <textarea id="presentation" class="screen-dialog-edit-profile-input largetext" maxlength="300">${data['presentation']}</textarea>
             </div>
             <div class="screen-dialog-footer">
                 <button id="spara" class="edit-button spara">Spara</button>
@@ -94,7 +95,7 @@ window.saveProfileEdit = async function (id, title, presentation, username){
     const data = {id, title, presentation, username};
     console.log(data);
     try{
-        const response = await fetch(`../dbGrejer/apiGrejsenFragetecken.php?updateUser=true`, {
+        const response = await fetch(`${API_BASE}?updateUser=true`, {
             method: 'POST',
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(data)
@@ -115,7 +116,7 @@ window.saveProfileEdit = async function (id, title, presentation, username){
 
 window.getUserInfo = async function (id){
     try{
-        const response = await fetch(`../dbGrejer/apiGrejsenFragetecken.php?id=${id}&userInfo=true`, {
+        const response = await fetch(`${API_BASE}?id=${id}&userInfo=true`, {
             method: 'GET',
         });
         if (!response.ok) {
@@ -160,7 +161,6 @@ window.getEditPost = async function (id) {
 
             savePostEdit(id, newContent, newTitle);
             removeOverlay();
-            window.location.reload();
         });
 }
 
@@ -190,11 +190,9 @@ window.addPost = function (userID){
         .addEventListener('click', function() {
             const newTitle   = document.getElementById(`title-content`).value;
             const newContent = document.getElementById(`text-content`).value;
-            const RandomIDFörJagGlömdeHurDatabaseFungerarFörPostenHarIngenIDFörDenHarSkapatsIDatabase = Math.floor(Math.random() * 100);
-            savePostEdit(RandomIDFörJagGlömdeHurDatabaseFungerarFörPostenHarIngenIDFörDenHarSkapatsIDatabase, newContent, newTitle, userID);
-            removeOverlay();
-
-
+            const RandomIDFörJagGlömdeHurDatabaseFungerarFörPostenHarIngenIDFörDenHarSkapatsIDatabasen = Math.floor(Math.random() * 100);
+            savePostEdit(RandomIDFörJagGlömdeHurDatabaseFungerarFörPostenHarIngenIDFörDenHarSkapatsIDatabasen, newContent, newTitle, userID);
+            removeOverlay()
 
         });
 }
@@ -203,7 +201,7 @@ window.addPost = function (userID){
 
 window.getPostText = async function(id){
     try{
-        const response = await fetch(`../dbGrejer/apiGrejsenFragetecken.php?id=${id}&text=true`,{
+        const response = await fetch(`${API_BASE}?id=${id}&text=true`,{
             method: 'GET',
         })
         if (!response.ok) {
@@ -227,7 +225,7 @@ window.savePostEdit = async function(id, text, title, userid=null){
     try {
         const data = { id, text, title, userid };
         console.log(data)
-        const response = await fetch(`../dbGrejer/apiGrejsenFragetecken.php?savepost=true&edit=${edit}`,{
+        const response = await fetch(`${API_BASE}?savepost=true&edit=${edit}`,{
             method:'POST',
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(data)

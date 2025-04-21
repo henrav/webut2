@@ -1,6 +1,6 @@
 <?php
-require_once '../dbGrejer/db.php';
-require_once 'auth.php';
+require_once __DIR__ . '/../dbGrejer/db.php';
+require_once __DIR__ . '/auth.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $userName = $_POST['username'] ?? '';
@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $user = check_inlogg($userName, $password);
     if (! $user) {
-        header('Location: /loggain.php?error=Felaktigt+användarnamn+eller+lösenord');
+        header('Location: ../loggain.php?error=Felaktigt+användarnamn+eller+lösenord');
         exit;
     }
 
@@ -16,8 +16,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     createSession($user['username'], $id, 3600);
 
     $target = (isset($_GET['nav']) && $_GET['nav']==='edit')
-        ? '/edit.php'
-        : '/index.php';
+        ? '../edit.php'
+        : '../index.php';
     header("Location: {$target}");
     exit;
 }

@@ -4,7 +4,7 @@ session_start();
 
 if (isset($_SESSION["expire_time"]) && (time() - $_SESSION["last_activity"] > $_SESSION["expire_time"]))  {
     session_destroy();
-    header('Location: /loggain.php?error=Din+session+tog+slut');
+    header('Location: loggain.php?error=Din+session+tog+slut');
 }
 
 

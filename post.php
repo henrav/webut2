@@ -1,7 +1,12 @@
 <?php
 
 abstract class Post{
+    // abstract Post class
+
+    // datan från databasen
     protected $data;
+
+    // flagga för om man får redigera posten
     protected $editable = false;
     public function __construct($data, $editable = false){
         $this->data = $data;
@@ -11,26 +16,33 @@ abstract class Post{
     abstract public function renderPost();
 }
 
+//index post är poster på index.php och profile.php
 class indexPost extends Post
 {
+    // callar den för att printa posten varje grej
     public function renderPost(){
+
+
         if (! is_array($this->data)) {
             return '<div class="error" style="color: black">Oops: något fel hände här.</div>';
         }
+        // visa inte all text
         $text = $this->data["content"];
         if (strlen($this->data["content"]) > 100){
             $text = substr($this->data["content"],0,100)."...";
         }
-        $imgPath = ! empty($post['image'])
-            ? $post['image']
-            : 'images/Heavy_from_tf2 copy.png';
-        $editBtn = '';
         $id = $this->data["id"];
+        // hämta path, om tom, default till scout
+        $imgPath = !empty($this->data['image'] || $this->data['image'] != '')
+            ? $this->data['image']
+            : 'images/scout_eating.jpg';
+
+        // om editable, skapa två knappar och lägg till den till return satsen
+        $editBtn = '';
         if ($this->editable) {
-            $editUrl = "editpost.php?ID={$this->data['id']}";
             $editBtn = "<div style='display: block; margin-left: auto; margin-right: auto; '>
                     <button class='redigera'  onclick=\"getEditPost({$id})\">Redigera</button> 
-                    <button class='redigera' onclick=\"getDelete({$id})\">Ta bort</button>       
+                    <button class='redigera tabort' onclick=\"getDelete({$id})\">Ta bort</button>       
                 </div>";
         }
 
@@ -67,12 +79,13 @@ class indexPost extends Post
 class viewPost extends Post
 {
     public function renderPost(){
+        //basicly samma som indexpost, fast utan knappar
         if (! is_array($this->data)) {
             return '<div class="error" style="color: black">Oops: något fel hände här.</div>';
         }
-        $imgPath = ! empty($post['image'])
-            ? $post['image']
-            : '/images/Heavy_from_tf2 copy.png';
+        $imgPath = !empty($this->data['image'] || $this->data['image'] != '')
+            ? $this->data['image']
+            : 'images/scout_eating.jpg';
 
         return '<div class="container-för-att-kolla-på-posten-grejen-eller-någonting">
                  <div class="title-post">

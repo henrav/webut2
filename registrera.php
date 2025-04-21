@@ -1,4 +1,9 @@
 <?php
+
+
+
+// Generell registrera sidan, inte så mycket att kommentera
+// enkel html charlimit men aaa
 ?>
 <!DOCTYPE html>
 <html lang="sv">
@@ -6,7 +11,7 @@
     <meta charset="UTF-8">
     <title>Registrera</title>
 
-    <link rel="stylesheet" href="/css/inlogg.css">
+    <link rel="stylesheet" href="css/inlogg.css">
 </head>
 <body>
 <div class="login-container">
@@ -20,7 +25,7 @@
     <?php endif; ?>
 
     <!-- Formulär -->
-    <form method="post" action="/AuthGrejer/registreraAuth.php" class="login-form">
+    <form method="post" action="AuthGrejer/registreraAuth.php" class="login-form">
         <div class="form-group">
             <label for="username">Användarnamn:</label>
             <input
@@ -44,9 +49,9 @@
         </div>
         <button type="submit">Registrera</button>
         <div style="display: inline-flex; align-items: center; justify-content: center;margin-top: 20px; margin-bottom: 10px;">
-        <button type="button" class="navigera-bloggen" onclick="window.location.href='/index.php';">Till bloggen</button>
+        <button type="button" class="navigera-bloggen" onclick="window.location.href='index.php';">Till bloggen</button>
 
-        <button  type="button" class="navigera-button" onclick="window.location.href='/loggain.php';">Logga in</button>
+        <button  type="button" class="navigera-button" onclick="window.location.href='loggain.php';">Logga in</button>
         </div>
     </form>
 </div>

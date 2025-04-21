@@ -1,6 +1,6 @@
 <?php
-require_once '../dbGrejer/db.php';
-require_once 'auth.php';
+require_once __DIR__ . '/../dbGrejer/db.php';
+require_once __DIR__ . '/auth.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $userName = $_POST['username'];
@@ -10,10 +10,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (!$user){
         add_user($userName, $password);
-        createSession($userName, $user['id'] ,3600);
-        header('Location: /index.php');
+        $userInfo = get_user($userName);
+        createSession($userInfo['username'], $userInfo['id'] ,3600);
+        header('Location: ../index.php');
     }else{
-        header('Location: /registrera.php?error=Användarnamnet+finns+redan');
+        header('Location: ../registrera.php?error=Användarnamnet+finns+redan');
         exit;
     }
 

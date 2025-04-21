@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/AuthGrejer/auth.php';
-require_once 'post.php';
+require_once __DIR__ . '/post.php';
 require_once __DIR__ . '/dbGrejer/db.php';
 ?>
 <!DOCTYPE html>
@@ -24,9 +24,11 @@ require_once __DIR__ . '/dbGrejer/db.php';
                 <h2>Senaste blogginläggen</h2>
             </div>
             <?php
+            // get posts hämtar alla posts, eller dem 10 senaste kommer inte ihåg
             $posts = get_posts();
             ?>
             <?php foreach ($posts as $post) :
+                // skapar post object med datan från databasen och sedan printar dem eller echoar eller vad man nu säger
                 $nyPost = new indexPost($post);
                 echo $nyPost->renderPost();
                 ?>

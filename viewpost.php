@@ -1,11 +1,11 @@
 <?php
 require_once __DIR__ . '/AuthGrejer/auth.php';
-require_once 'post.php';
+require_once __DIR__ . '/post.php';
 require_once __DIR__ . '/dbGrejer/db.php';
 
 $postID = $_GET['ID'] ?? "";
 if ($postID == ""){
-    header('Location: /index.php');
+    header('Location: index.php');
 }
 
 try{
@@ -14,7 +14,7 @@ try{
     $posten = new viewPost($getpost);
 
 }catch (Exception $e){
-    header('Location: /index.php');
+    header('Location: index.php');
 }
 
 ?>

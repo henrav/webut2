@@ -1,20 +1,24 @@
 <?php
-require_once('db_credentials.php');
-
+require_once __DIR__ .'/db_credentials.php';
 // Koppla upp mot databasen, detta gör vi en gång när skriptet startar (sidan laddas in)
-$connection = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
-
+$connection = mysqli_connect(
+    DB_SERVER,
+    DB_USER,
+    DB_PASS,
+    DB_NAME
+) or die('Connect error: '.mysqli_connect_error());
 function add_user($username, $password)
 {
     global $connection; // Så vi kommer åt den globala variabeln
-
+    $defaultTitle = 'Min tf2 profil';
+    $defaultPresentation = 'Soldier main )=';
     // Skapa SQL-frågan
-    $sql = 'INSERT INTO user (username, password) VALUES (?,?)';
+    $sql = 'INSERT INTO user (username, password, title, presentation) VALUES (?,?, ?,?)';
     // Förbered frågan
     $statment = mysqli_prepare($connection, $sql);
 
     // Bind ihop variablerna med statement användarnamn och läsenord är strängar (s)
-    mysqli_stmt_bind_param($statment, "ss", $username, $password);
+    mysqli_stmt_bind_param($statment, "ssss", $username, $password, $defaultTitle, $defaultPresentation);
 
     // Utför frågan
     mysqli_stmt_execute($statment);
@@ -156,9 +160,8 @@ function get_user($username)
     $statment = mysqli_prepare($connection, $sql);
     mysqli_stmt_bind_param($statment, "s", $username);
     mysqli_stmt_execute($statment);
-    $result = get_result($statment);
-    mysqli_stmt_close($statment);
-    return $result;
+    $result = mysqli_stmt_get_result($statment);
+    return mysqli_fetch_assoc($result);
 }
 
 function get_user_by_id($id)
@@ -228,7 +231,7 @@ function get_post_content($id)
 function change_avatar($filename, $id)
 {
     global $connection;
-    $sql = 'UPDATE user SET image=? WHERE id=?';
+    $sql = 'UPDATE user SET image = ? WHERE id = ?';
     $statment = mysqli_prepare($connection, $sql);
     mysqli_stmt_bind_param($statment, "si", $filename, $id);
     $result = mysqli_stmt_execute($statment);

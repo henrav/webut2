@@ -1,4 +1,6 @@
 <?php
+
+// basic login inte så mycket, skickar till loggainAuth.php, mer roligt där
 ?>
 <!DOCTYPE html>
 <html lang="sv">
@@ -6,7 +8,7 @@
     <meta charset="UTF-8">
     <title>Logga in</title>
 
-    <link rel="stylesheet" href="/css/inlogg.css">
+    <link rel="stylesheet" href="css/inlogg.css">
 </head>
 <body>
 <div class="login-container">
@@ -24,7 +26,7 @@
         </p>
     <?php endif; ?>
     <!-- Formulär -->
-    <form method="post" action="/AuthGrejer/loggainAuth.php<?= isset($_GET['nav'])
+    <form method="post" action="AuthGrejer/loggainAuth.php<?= isset($_GET['nav'])
             ? '?nav=' . htmlspecialchars($_GET['nav'], ENT_QUOTES, 'UTF-8')
                 : ''
             ?>"
@@ -53,8 +55,8 @@
         <button type="submit">Logga in</button>
 
         <div style="display: inline-flex; align-items: center; justify-content: center;margin-top: 20px; margin-bottom: 10px;">
-            <button type="button" class="navigera-bloggen" onclick="window.location.href='/index.php';">Till bloggen</button>
-            <button type="button" class="navigera-button" onclick="window.location.href='/registrera.php';">Registrera</button>
+            <button type="button" class="navigera-bloggen" onclick="window.location.href='index.php';">Till bloggen</button>
+            <button type="button" class="navigera-button" onclick="window.location.href='registrera.php';">Registrera</button>
         </div>
     </form>
 </div>

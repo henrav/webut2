@@ -1,12 +1,40 @@
 <?php
-require_once 'db.php';
+require_once __DIR__ . '/db.php';
+require_once __DIR__ . '/../AuthGrejer/auth.php';
+
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 }
+function getUserPosts($id){
+    try{
+        $posts = get_posts_userid($id);
+        return $posts;
+
+    }catch (Exception $e){
+        http_response_code(500);
+    }
+}
+
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id']) && isset($_GET['delete']) && $_GET['delete'] === 'true') {
     $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+    $userID = $_SESSION['userID'];
+    $validateUserPosts = getUserPosts($userID);
+    $boolFound = false;
+    // validera att det är dina posts
+    foreach ($validateUserPosts as $validateUserPost) {
+        if ($validateUserPost['id'] === $id) {
+            $boolFound = true;
+            break;
+        }
+    }
+    if (!$boolFound){
+        return http_response_code(500);
+    }
+
     try{
         delete_post($id);
     }catch (Exception $e){
@@ -43,7 +71,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['savepost']) && isset($
     $title   = trim((string)$data['title']);
     $userId  = isset($data['userid']) ? (int)$data['userid'] : null;
     try {
-        if ($edit) {
+        if ($edit === 'true') {
+
+            // validera att det är dina posts
+            $userID = $_SESSION['userID'];
+            $validateUserPosts = getUserPosts($userID);
+            $boolFound = false;
+            foreach ($validateUserPosts as $validateUserPost) {
+                if ($validateUserPost['id'] === $id) {
+                    $boolFound = true;
+                    break;
+                }
+            }
+
+            if (!$boolFound){
+                return http_response_code(500);
+            }
             update_post($id, $title, $text);
         } else {
             create_post($title, $text, (int)$userId);
@@ -81,6 +124,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['updateUser']) && $_GET
     $title = trim((string)$data['title']);
     $presentation = trim((string)$data['presentation']);
     $username = $data['username'];
+    // validera att det är din profil
+    if ($id !== $_SESSION['userID']) {
+        http_response_code(403);
+    }
 
     try{
         update_user($username, $title, $presentation, $id);
