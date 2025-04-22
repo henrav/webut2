@@ -20,13 +20,13 @@ if ($type !== 'image/jpeg' && $type !== 'image/png' && $type !== 'image/webp') {
     exit('Invalid file type');
 }
 
-// försökt med denna dumma uploads halva dagen nu på servern me vägrar fungera, tror jag blir galen
+// försökt med denna *** uploads halva dagen nu på servern me vägrar fungera, tror jag blir galen: edit var inte tillåtet
 // directory på servern
-$uploadDir    = __DIR__ . '/uploads'   ;
+$uploadDir    = __DIR__ . '/uploads/'   ;
 
 // skapa en ny filnamn så dem e relativt unika iallafall
 $newFilename  = $userID . $filename;
-$newPath      = $uploadDir . '/' . $newFilename;
+$newPath      = $uploadDir. $newFilename;
 
 
 // basicly ta bort din gamla bild från directory
@@ -34,7 +34,7 @@ $newPath      = $uploadDir . '/' . $newFilename;
 // om pathen finns i directory, ta bort den
 $userinfo = get_user_by_id($userID);
 if (!empty($userinfo['image'])) {
-    $lastpath = $uploadDir.'/'.$userinfo['image'];
+    $lastpath = $uploadDir . $userinfo['image'];
     if (is_file($lastpath)) {
         unlink($lastpath);
     }
@@ -42,7 +42,7 @@ if (!empty($userinfo['image'])) {
 
 // försökt med så många file_get_contents/ file move blabal men funkar inte på servern
 $content = file_get_contents($_FILES['filename']['tmp_name']);
-$dest = $uploadDir . '/' . $newFilename;
+$dest = $uploadDir . $newFilename;
 if (file_put_contents($dest, $content) === false) {
     $err = error_get_last();
     die("Failed to write upload to $dest: "
@@ -50,7 +50,7 @@ if (file_put_contents($dest, $content) === false) {
 }
 
 // funktionen för att ändra bild
-change_avatar('uploads/'.$newFilename, $userID);
+change_avatar($newFilename, $userID);
 
 header('Location: profile.php?ID=' . $userID . '&upload=success');
 exit;

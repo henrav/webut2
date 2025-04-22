@@ -99,11 +99,11 @@ shuffle($tf2quotes);
          <?php
             foreach ($newUsers as $post) {
                 // separerar posts från nya users genom att
-                // selecta "ID" as "userID" när jag hämtar users
-                // hade nya posts här innan därflr det är en if sats men kl äär 01 och orkar inte ta bort
+                // if satsen är gammal jobbig att ta bort, men behövdes förut när jag tänkte visa "posts" här också
                 if (isset($post['userID'])){
+                    // defaulta till scout
                     $imgPath = !empty($post['image'] || $post['image'] != '')
-                        ? $imgPath = $post['image']
+                        ? $imgPath = 'uploads/'. $post['image']
                         : 'images/scout_eating.jpg';
                     $randomQuote = array_pop($tf2quotes);
                     echo    '<div class="ny-user" onclick="window.location.href=\'profile.php?ID='.$post['userID'].'\'">
@@ -119,7 +119,7 @@ shuffle($tf2quotes);
                                    <div class="ny-user-container">
                                      <div class="ny-user-img">
                                   
-                                        <img class="ny-user-img" src="'.$imgPath .'" alt="">
+                                        <img class="ny-user-img" src="'. $imgPath .'" alt="">
                                    </div>
                                     <div class="ny-user-timestamp">'.$post['created'] . '
                                     </div>

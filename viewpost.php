@@ -3,14 +3,17 @@ require_once __DIR__ . '/AuthGrejer/auth.php';
 require_once __DIR__ . '/post.php';
 require_once __DIR__ . '/dbGrejer/db.php';
 
+// om den inte hiddar urlen eller den inte har värde
 $postID = $_GET['ID'] ?? "";
 if ($postID == ""){
     header('Location: index.php');
 }
 
 try{
+    // hämta post info
     $getpost = get_post($postID);
 
+    // skapa post objekt
     $posten = new viewPost($getpost);
 
 }catch (Exception $e){
@@ -36,7 +39,10 @@ try{
     <?php require_once __DIR__ . '/rightandLeft/left/left-container.php'; ?>
     <div class="thingy-orkar-inte-döpa-fler-containrar">
         <div class="view-post-container">
-            <?= $posten->renderPost() ?>
+            <?=
+            // printa objektet
+            $posten->renderPost()
+            ?>
         </div>
     </div>
 

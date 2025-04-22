@@ -4,14 +4,14 @@ require_once __DIR__ . '/post.php';
 require_once __DIR__ . '/dbGrejer/db.php';
 
 
-// sätt flagga för om du "äger" sidan, om det är din sida alltså
+// sätt flagga för om du "äger" sidan, om det är din sida alltså om sessionid == profileID
 $urlID = $_GET['ID'] ?? "";
 $isOwner = false;
 if (isset($_SESSION['userID']) && $urlID !== false) {
     $isOwner = ($_SESSION['userID'] === (int) $urlID);
 }
 
-// hämta user info och user posts  som vi ska printa på sidan
+// hämta user info och user posts som vi ska printa på sidan
 $userInfo = get_user_by_id($urlID);
 $userPosts = get_posts_userid($urlID);
 
@@ -23,10 +23,10 @@ if (empty($userInfo)) {
     return;
 }
 
-// om ingen bild är satt, sätt default scout bild
+// om ingen bild är satt, sätt default scout bild, alla gillar scout
 $userImagePath ='';
 $userImagePath = !empty($userInfo['image'] || $userInfo['image'] != '')
-    ? $userImagePath = $userInfo['image']
+    ? $userImagePath = 'uploads/' . $userInfo['image']
     : 'images/scout_eating.jpg';
 
 ?>
@@ -76,7 +76,10 @@ $userImagePath = !empty($userInfo['image'] || $userInfo['image'] != '')
                 <div style="margin-right: auto; margin-left: auto; border-radius: 6px ">
                         <div class="view-profile-h2-container">
                             <h2>
-                               <?php echo $userInfo['username']; ?>
+                               <?php echo $userInfo['username'];
+                               // vet inte hur mycket man ska kommentera men struntar att kommentera html för känns lite aaah
+
+                               ?>
                             </h2>
                         </div>
 
@@ -85,6 +88,7 @@ $userImagePath = !empty($userInfo['image'] || $userInfo['image'] != '')
                         <div class="title-container">
                             <div class="user-title-box">
                                 <?php if (isset($userInfo['title'])){
+                                    // förut hade jag ingen default title när man registrera sig då var denna här men
                                     echo '<h3>'.$userInfo['title'].'</h3>';
                                 }else{
                                     echo 'Ingen titel finns';
@@ -96,7 +100,9 @@ $userImagePath = !empty($userInfo['image'] || $userInfo['image'] != '')
                                 om mig
                             </div>
                             <div class="presentation-container-text">
-                                <?php if (isset($userInfo['presentation'])){
+                                <?php if (isset($userInfo['presentation']))
+                                    // samma här, hade inte default presentation förut
+                                {
                                     echo $userInfo['presentation'];
                                 }else{
                                     echo 'Ingen presentation har skrivits';
@@ -122,7 +128,7 @@ $userImagePath = !empty($userInfo['image'] || $userInfo['image'] != '')
             </div>
             <div class="user-posts">
                 <h1 style="color: blue; font-style: italic; text-decoration: underline">
-                    <?php if ($isOwner) : ?>
+                    <?php if ($isOwner) : // lite grejer för att visa att du är inne på din eller någon annans profil?>
                         Mina inlägg
                     <?php else : ?>
                         <?= $userInfo['username'] ?>'s inlägg
@@ -139,13 +145,14 @@ $userImagePath = !empty($userInfo['image'] || $userInfo['image'] != '')
                 <?php else : ?>
                     <?php foreach ($userPosts as $post) : ?>
                         <?php
-                    // för varje post, om du "äger" sidan, generera "editable" posts
+                        // för varje post, om du "äger" sidan, generera "editable" posts
                         if ($isOwner){
                             $nyPost = new indexPost($post, true);
                              echo $nyPost->renderPost();
                         }else{
-                            $nyPost = new indexPost($post, false);
-                             echo $nyPost->renderPost();
+                            // inte editable så vi gör inget
+                            $nyPost = new indexPost($post);
+                            echo $nyPost->renderPost();
                         }
 
                         ?>
@@ -161,17 +168,6 @@ $userImagePath = !empty($userInfo['image'] || $userInfo['image'] != '')
 </html>
 <script src="javascript/minfinajsgrej.js"></script>
 <script>
-    const fileInput  = document.getElementById('myFile');
-    const fileNameEl = document.getElementById('file-name');
-    const submitBtn  = document.getElementById('uploadBtn');
+    addListenerUpload();
 
-    fileInput.addEventListener('change', () => {
-        if (fileInput.files.length > 0) {
-            fileNameEl.textContent = fileInput.files[0].name;
-            submitBtn.style.display = 'block';
-        } else {
-            fileNameEl.textContent = 'Ingen fil vald';
-            submitBtn.style.display = 'none';
-        }
-    });
 </script>

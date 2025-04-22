@@ -19,12 +19,10 @@ function add_user($username, $password)
 
     // Bind ihop variablerna med statement användarnamn och läsenord är strängar (s)
     mysqli_stmt_bind_param($statment, "ssss", $username, $password, $defaultTitle, $defaultPresentation);
-
     // Utför frågan
     mysqli_stmt_execute($statment);
-
-    // Stäng statementet när vi är klara
-    mysqli_stmt_close($statment);
+    // returna sista id:et
+    return mysqli_insert_id($connection);
 }
 
 function update_user($username, $title, $presentation, $id){
@@ -70,10 +68,14 @@ function get_post($id){
             p.created,
             p.userId,
             u.username,
-            u.image
+            u.image,
+            i.filename,
+            i.description
             FROM post AS p
                 INNER JOIN user AS u
                     ON p.userId = u.id
+                INNER JOIN image AS i
+                    on p.id = i.postId
             WHERE p.id = ?;';
     $stmt = mysqli_prepare($connection, $sql);
     mysqli_stmt_bind_param($stmt, "i", $id);
@@ -176,6 +178,23 @@ function get_user_by_id($id)
 
 }
 
+function get_image_path($id){
+    global $connection;
+    $sql = 'SELECT filename FROM image WHERE postId=?';
+    $statment = mysqli_prepare($connection, $sql);
+    mysqli_stmt_bind_param($statment, "i", $id);
+    mysqli_stmt_execute($statment);
+    $result = mysqli_stmt_get_result($statment);
+    return mysqli_fetch_assoc($result);
+}
+function create_image_post($filename, $description ,$postId){
+    global $connection;
+    $sql = 'INSERT INTO image (filename, description, postId) VALUES(?,?,?)';
+    $stmt = mysqli_prepare($connection, $sql);
+    mysqli_stmt_bind_param($stmt, "ssi", $filename, $description, $postId);
+    mysqli_stmt_execute($stmt);
+}
+
 function create_post($title, $content, $userId)
 {
     global $connection;
@@ -183,14 +202,32 @@ function create_post($title, $content, $userId)
     $statment = mysqli_prepare($connection, $sql);
     mysqli_stmt_bind_param($statment, "ssi", $title, $content, $userId);
     mysqli_stmt_execute($statment);
+    return mysqli_insert_id($connection);
 }
 
-function update_post($id, $title, $content){
+function update_post($id, $title, $content ){
     global $connection;
     $sql = 'UPDATE post SET title = ?, content = ? WHERE id = ?;';
     $statment = mysqli_prepare($connection, $sql);
     mysqli_stmt_bind_param($statment, "ssi", $title, $content, $id);
     mysqli_stmt_execute($statment);
+}
+
+function update_picture_description_postID($id, $description){
+    global $connection;
+    $sql = 'UPDATE image SET description = ? WHERE postId = ?;';
+    $statment = mysqli_prepare($connection, $sql);
+    mysqli_stmt_bind_param($statment, "si", $description, $id);
+    mysqli_stmt_execute($statment);
+}
+
+function update_img_path($id, $imgPath){
+    global $connection;
+    $sql = 'UPDATE image SET filename = ? WHERE postId = ?;';
+    $statment = mysqli_prepare($connection, $sql);
+    mysqli_stmt_bind_param($statment, "si", $imgPath, $id);
+    mysqli_stmt_execute($statment);
+
 }
 
 function get_password($id)
@@ -219,7 +256,13 @@ function get_images($id)
 function get_post_content($id)
 {
     global $connection;
-    $sql = 'SELECT content, title FROM post WHERE id=?';
+    $sql = 'SELECT 
+       post.content, 
+       post.title, 
+       image.description 
+    FROM post INNER JOIN image ON post.id = image.postId
+    
+    WHERE post.id=?';
     $statment = mysqli_prepare($connection, $sql);
     mysqli_stmt_bind_param($statment, "i", $id);
     mysqli_stmt_execute($statment);
@@ -239,10 +282,22 @@ function change_avatar($filename, $id)
     return $result;
 }
 
-function delete_post($id)
+function delete_image(int $id)
 {
     global $connection;
-    $sql = 'DELETE FROM post WHERE id=?';
+    $sql = 'DELETE FROM image WHERE postId = ?';
+    $statment = mysqli_prepare($connection, $sql);
+    mysqli_stmt_bind_param($statment, "i", $id);
+    $result = mysqli_stmt_execute($statment);
+    mysqli_stmt_close($statment);
+    return $result;
+
+}
+
+function delete_post(int $id): bool
+{
+    global $connection;
+    $sql = 'DELETE FROM post WHERE id = ?';
     $statment = mysqli_prepare($connection, $sql);
     mysqli_stmt_bind_param($statment, "i", $id);
     $result = mysqli_stmt_execute($statment);

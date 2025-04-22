@@ -156,3 +156,25 @@
     background-color: #ec0000 !important;
     color: white !important;
 }
+
+.post-image-container{
+    height: 30vh;
+    width: 30vw;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.post-image-container img{
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.post-content-image-container{
+    display: inline-block;
+    grid-template-rows: 1fr 3fr;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}

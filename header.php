@@ -1,4 +1,5 @@
 
+<!-- vet inte hur mycket man kan kommentera här. liksom vanlig header, knappar och "if session" grejer -->
 <div class="main-header">
     <div class="main-header-grid">
         <div class="grid-content">

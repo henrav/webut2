@@ -34,7 +34,7 @@ class indexPost extends Post
         $id = $this->data["id"];
         // hämta path, om tom, default till scout
         $imgPath = !empty($this->data['image'] || $this->data['image'] != '')
-            ? $this->data['image']
+            ? 'uploads/'. $this->data['image']
             : 'images/scout_eating.jpg';
 
         // om editable, skapa två knappar och lägg till den till return satsen
@@ -59,6 +59,7 @@ class indexPost extends Post
                     <div class="post-preview-text">
                         '. $text .'
                     </div>
+              
                 </div>
                 <div class="post-footer" onclick="window.location.href=\'viewpost.php?ID='.$this->data["id"].'\'">
                
@@ -80,20 +81,35 @@ class viewPost extends Post
 {
     public function renderPost(){
         //basicly samma som indexpost, fast utan knappar
-        if (! is_array($this->data)) {
+        if (!is_array($this->data)) {
             return '<div class="error" style="color: black">Oops: något fel hände här.</div>';
         }
         $imgPath = !empty($this->data['image'] || $this->data['image'] != '')
-            ? $this->data['image']
+            ? 'uploads/'. $this->data['image']
+            : 'images/scout_eating.jpg';
+
+        $postIMG = !empty($this->data['filename'] || $this->data['filename'] != '')
+            ? 'uploads/'. $this->data['filename']
             : 'images/scout_eating.jpg';
 
         return '<div class="container-för-att-kolla-på-posten-grejen-eller-någonting">
                  <div class="title-post">
                             <h1>'.$this->data['title'].'</h1>
                         </div>
-                        <div class="content">   
+                        <div class="post-content-image-container" style="color: black">
+                        <div style="text-align: center; font-size: 18; font-weight: bold">'. $this->data['description'] .'</div>
+                            <div class="post-image-container">
+                             <img src='.$postIMG.' alt="">
+                            </div>
+                            <div class="content">   
                              '. $this->data["content"] .'
+                            
+                            </div>
                         </div>
+                         
+                       
+                     
+                            
                         <div class="post-footer">
                             <div style="display: flex; flex-direction: row; justify-content: center; align-items: center; border-right: 1px solid black">
                                 <div class="post-footer-username">
